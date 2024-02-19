@@ -1,13 +1,7 @@
 package com.devsuperior.dsmovie.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -110,10 +104,11 @@ public class ScoreServiceTests {
 			scoreDTO = new ScoreDTO(score);
 			
 			Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+				
 				@SuppressWarnings("unused")
-				final MovieDTO result = service.saveScore(scoreDTO);
-			});
-		
+				MovieDTO result = service.saveScore(scoreDTO);
+				
+			});		
 	  
 	  }
 	 
