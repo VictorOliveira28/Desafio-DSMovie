@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dsmovie.dto.MovieDTO;
+import com.devsuperior.dsmovie.dto.MovieGenreDTO;
 import com.devsuperior.dsmovie.entities.MovieEntity;
 import com.devsuperior.dsmovie.repositories.MovieRepository;
 import com.devsuperior.dsmovie.services.exceptions.DatabaseException;
@@ -26,12 +27,25 @@ public class MovieService {
 		Page<MovieEntity> result = repository.searchByTitle(title, pageable);
 		return result.map(x -> new MovieDTO(x));
 	}
+	
+	@Transactional(readOnly = true)
+	public Page<MovieGenreDTO> findAllMovieGenre(String title, Pageable pageable) {
+		Page<MovieEntity> result = repository.searchByTitle(title, pageable);
+		return result.map(x -> new MovieGenreDTO(x));
+	}
 
 	@Transactional(readOnly = true)
 	public MovieDTO findById(Long id) {
 		MovieEntity result = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
 		return new MovieDTO(result);
+	}
+	
+	@Transactional(readOnly = true)
+	public MovieGenreDTO findByIdMovieGenre(Long id) {
+		MovieEntity result = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
+		return new MovieGenreDTO(result);
 	}
 
 	@Transactional

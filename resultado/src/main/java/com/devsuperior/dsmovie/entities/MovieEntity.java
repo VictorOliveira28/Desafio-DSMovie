@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -22,6 +24,10 @@ public class MovieEntity {
 	private Double score;
 	private Integer count;
 	private String image;
+	
+	@ManyToOne
+	@JoinColumn(name = "genre_id")
+	private Genre genre;
 	
 	@OneToMany(mappedBy = "id.movie")
 	private Set<ScoreEntity> scores = new HashSet<>();
@@ -79,6 +85,14 @@ public class MovieEntity {
 
 	public Set<ScoreEntity> getScores() {
 		return scores;
+	}
+	
+	public Genre getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Genre genre) {
+		this.genre = genre;
 	}
 
 	@Override
